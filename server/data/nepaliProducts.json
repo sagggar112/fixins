@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Samsung Galaxy S23",
+    "price": 135000,
+    "originalPrice": 145000,
+    "shopName": "Tech Mart Kathmandu",
+    "city": "Kathmandu",
+    "location": {
+      "type": "Point",
+      "coordinates": [85.3240, 27.7172]
+    },
+    "category": "Smartphones",
+    "warranty": "1 year",
+    "inStock": true,
+    "nepaliMarket": true,
+    "image": "https://placehold.co/300x200/003366/white?text=S23"
+  },
+  {
+    "name": "Dell Inspiron 15 3000",
+    "price": 75900,
+    "originalPrice": 82000,
+    "shopName": "Hardware Solutions",
+    "city": "Pokhara",
+    "location": {
+      "type": "Point",
+      "coordinates": [83.9856, 28.2096]
+    },
+    "category": "Laptops",
+    "warranty": "2 years",
+    "inStock": false,
+    "estimatedStockDays": 3,
+    "nepaliMarket": true,
+    "image": "https://placehold.co/300x200/006633/white?text=Dell"
+  }
+]
