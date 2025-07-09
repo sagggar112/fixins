@@ -1,68 +1,57 @@
-require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+const dotenv = require('dotenv');
 const morgan = require('morgan');
-const http = require('http');
-const socketIo = require('socket.io');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const { errorHandler } = require('./middlewares/errorHandler');
+
+// Load env vars
+dotenv.config();
+
+// Connect to DB
+connectDB();
 
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
-});
-
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fixins', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('MongoDB connection error:', err));
 
 // Middleware
-app.use(cors());
-app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
+if (process.env.NODE_ENV !== 'production') app.use(morgan('dev'));
 
 // Routes
-const shopsRouter = require('./routes/shops');
-const productsRouter = require('./routes/products');
-const repairsRouter = require('./routes/repairs');
-const messagesRouter = require('./routes/messages');
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/products', require('./routes/products'));
+app.use('/api/shops', require('./routes/shops'));
+app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/messages', require('./routes/messages'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/admin', require('./routes/admin'));
 
-app.use('/api/shops', shopsRouter);
-app.use('/api/products', productsRouter);
-app.use('/api/repairs', repairsRouter);
-app.use('/api/messages', messagesRouter);
-
-// Socket.io for real-time chat
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  
-  socket.on('join_chat', (chatId) => {
-    socket.join(chatId);
-  });
-  
-  socket.on('send_message', (data) => {
-    io.to(data.chatId).emit('receive_message', data);
-  });
-  
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-});
+// Error handler
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const server = app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}`)
+);
+
+// Socket.io for chat
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
 });
 
-// Basic error handling
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
+io.on('connection', (socket) => {
+  console.log('New client connected:', socket.id);
+  socket.on('joinRoom', (room) => {
+    socket.join(room);
+  });
+  socket.on('sendMessage', (data) => {
+    io.to(data.room).emit('receiveMessage', data);
+  });
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
+  });
 });

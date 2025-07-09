@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "TechFix Nepal",
+    "category": "Electronics Repair",
+    "rating": 4.8,
+    "reviews": 124,
+    "location": "Kathmandu, Nepal",
+    "phone": "+977-1-1234567",
+    "email": "info@techfixnepal.com",
+    "services": ["Phone Repair", "Laptop Repair", "Tablet Repair"],
+    "description": "Professional electronics repair service with experienced technicians.",
+    "image": "https://via.placeholder.com/300x200",
+    "distance": "0.5 km",
+    "isOpen": true
+  },
+  {
+    "id": 2,
+    "name": "Mobile Care Center",
+    "category": "Mobile Repair",
+    "rating": 4.6,
+    "reviews": 89,
+    "location": "Pokhara, Nepal",
+    "phone": "+977-61-123456",
+    "email": "contact@mobilecare.com",
+    "services": ["iPhone Repair", "Android Repair", "Screen Replacement"],
+    "description": "Specialized in mobile phone repairs with quick turnaround time.",
+    "image": "https://via.placeholder.com/300x200",
+    "distance": "1.2 km",
+    "isOpen": true
+  },
+  {
+    "id": 3,
+    "name": "Laptop Pro Services",
+    "category": "Computer Repair",
+    "rating": 4.9,
+    "reviews": 156,
+    "location": "Lalitpur, Nepal",
+    "phone": "+977-1-9876543",
+    "email": "service@laptoppro.com",
+    "services": ["Laptop Repair", "Data Recovery", "Hardware Upgrade"],
+    "description": "Expert laptop and computer repair services with warranty.",
+    "image": "https://via.placeholder.com/300x200",
+    "distance": "2.1 km",
+    "isOpen": false
+  },
+  {
+    "id": 4,
+    "name": "Quick Fix Electronics",
+    "category": "Electronics Repair",
+    "rating": 4.4,
+    "reviews": 67,
+    "location": "Bhaktapur, Nepal",
+    "phone": "+977-1-4567890",
+    "email": "hello@quickfix.com",
+    "services": ["General Electronics", "Gaming Console Repair", "Audio Equipment"],
+    "description": "Fast and reliable electronics repair for all types of devices.",
+    "image": "https://via.placeholder.com/300x200",
+    "distance": "3.5 km",
+    "isOpen": true
+  }
+] 
